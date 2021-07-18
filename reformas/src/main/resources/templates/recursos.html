@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="comunes/comunes :: head"></head>
+
+
+
+<div th:insert="~{comunes/comunes :: scripts}"></div>
+<div th:replace="comunes/comunes :: navbar"></div>
+<body>
+      
+     <div id="container">
+       <div class="container">
+         <div class="d-flex flex-column">
+           
+       <section class="container-lista">
+		 <div class="card column" th:fragment="list"> 
+			<div class="card my-3" style="width: 18rem" th:each="item: ${page.getContent()}">
+				<div th:if="${item.img_url != null}">
+					<img class="card-img-top" th:src="@{'/img/' + ${item.img_url}}"alt="foto"></img>
+				</div>
+				  <strong th:text="${item.getNombre()}"></strong> <span class="price" th:text="${item.getPrecio()}"> EUR</span>
+				<div class="m-2">
+					<p class="small" th:text="${item.getDescripcion()}"></p>
+				</div>
+				 <div class="card-footer">
+					<form th:action="@{/preReserva/anade}" method="post">
+						<button type="submit" name="anade" class="btn btn-dark mx-3" th:value="${item.getId()}">Reservar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div th:insert="~{comunes/comunes :: pagination}"></div>
+	</section> 
+
+      </div>
+    </div>
+   </div>  
+ <script  th:src="@{js/main.js}"></script>     
+</body>
+
+</html>

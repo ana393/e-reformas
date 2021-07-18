@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="comunes/comunes :: head"></head>
+
+<body>
+<div th:insert="~{comunes/comunes :: scripts}"></div>
+<div th:replace="comunes/comunes :: navbar"></div>
+
+<div class="container">
+    <div th:replace="comunes/comunes :: userNavbar"></div>
+</div>
+
+<div class="container">
+    <form action="/reserva/reservas" method="post" >
+        <input type="text" name="email" th:value="${reserva.getEmail()}">
+        <div th:each="estado : ${estados}">
+            <input type="checkbox" th:name="${estado}" th:checked="${#lists.contains(reserva.estado, estado)}">
+            <label th:text="${estado}" /></label>
+        </div>
+        <input type="hidden" th:value="${reserva.getId()}" name="reservaId">
+        <button type="submit">Guardar</button>
+    </form>
+</div>
+
+<footer th:insert="~{comunes/comunes :: footer}"></footer>
+
+</body>
+</html>

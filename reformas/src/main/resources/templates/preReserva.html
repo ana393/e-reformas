@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="comunes/comunes :: head"></head>
+
+<body>
+<div th:insert="~{comunes/comunes :: scripts}"></div>
+<div th:replace="comunes/comunes :: navbar"></div>
+  <section>
+     <div class="container mt-5 pb-5">
+        <p class="h4 mb-4 text-center">Pre - Reserva</p>
+      <div class="text-center" th:if="${#lists.isEmpty(reservas)}">
+            <p>No hay elementos prereservados.</p>
+        </div>
+         <div th:if="${reservas  != null}">
+            <div class="card mb-4 mx-auto" style="max-width: 940px;" th:each="perfume : ${reservas}" >
+                <div class="row no-gutters">
+                    <div class="col-3 p-2">
+                        <img th:src="@{'/img/' + ${perfume.habitacion.getImg_url()}}" class="rounded mx-auto w-50">
+                    </div>
+                    <div class="col-7">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${perfume.habitacion.getNombre()}"></h5>     
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="card-body">
+                            <h5 class="card-title"><span th:text="${#numbers.formatDecimal(perfume.habitacion.precio, 0, 'COMMA', 2, 'POINT')}"></span>EUR.</h5>
+                          <span th:text = "${perfume.cantidad}"></span>
+                             <h5 class="card-title"><span th:text="${#numbers.formatDecimal(perfume.Total(), 0, 'COMMA', 2, 'POINT')}"></span>EUR.</h5>
+                          <div class="col-2 ">
+                             <a th:href="@{'/preReserva/remove-item/{id}' (id=${perfume.id})}">Eliminar</a>                              
+                          </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3"/>
+            <div class="row">
+                <div class="col-9 ">
+                  <p class="h5 text-right">Total:<span th:text="${#numbers.formatDecimal(preReserva.obtenerTotal(), 0, 'COMMA', 2, 'POINT')}"></span> EUR</p> 
+                </div>
+                <div class="col-3">
+                    <form action="/reserva" method="get" class="ml-3">
+                        <div class="form-row">
+                            <div class="col-6" th:if="${not #lists.isEmpty(reservas)}">
+                                <button class="btn btn-success" >Reservar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
+  </section>
+</body>
+</html>

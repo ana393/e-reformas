@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="comunes/comunes :: head"></head>
+
+<body>
+<div th:insert="~{comunes/comunes :: scripts}"></div>
+<div th:replace="comunes/comunes :: navbar"></div>
+
+<div class="container">
+    <div th:replace="comunes/comunes :: userNavbar"></div>
+</div>
+
+<div class="container">
+    <form action="/admin" method="post" >
+        <input type="text" name="email" th:value="${usuario.getEmail()}">
+        <div th:each="role : ${roles}">
+            <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(usuario.roles, role)}">
+            <label th:text="${role}" /></label>
+        </div>
+        <input type="hidden" th:value="${usuario.getId()}" name="userId">
+        <button type="submit">Guardar</button>
+    </form>
+</div>
+
+<footer th:insert="~{comunes/comunes :: footer}"></footer>
+
+</body>
+</html>

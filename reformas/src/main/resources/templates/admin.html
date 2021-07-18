@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="comunes/comunes :: head"></head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<div th:insert="~{comunes/comunes :: scripts}"></div>
+<div th:replace="comunes/comunes :: navbar"></div>
+
+
+    <div class="container">
+        <div th:replace="comunes/comunes :: userNavbar"></div>
+    </div>
+
+     <h2>Pagina Admin</h2>
+  
+<!-- <script >
+ function Buscar(){ 
+	 console.log("estas en Buscar()")
+		let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		let container = document.getElementById('card-container');
+		let buscar = document.getElementById('buscarTitulo').value;
+		let num = parseInt(Math.random()*999);
+		
+		let url = 'http://localhost:8089/recursos'+'?q='+num +'&buscar='+buscar;
+		
+		request.open("GET", url , true);
+		request.setRequestHeader("Content-type", "application/json");
+		request.onreadystatechange = function() {
+			if(this.readyState === 4 && this.status === 200){
+				console.log("Peticion correcta");
+			let data = JSON.parse(request.responseText);
+
+			 	if(data.lentgh == 0){
+					container.innerHTML =`<h2>De momento no hay titulos con este nombre</h2>`
+					return;
+				}
+				if(data != null){
+					console.log("Aqi sus datos", data);
+					return;
+				}	
+			} else {
+				console.error("Verifica la URL");
+			}
+		 }
+		request.send(null);
+ }
+ </script>   -->   
+
+<footer th:insert="~{comunes/comunes :: footer}"></footer>
+</body>
+</html>
